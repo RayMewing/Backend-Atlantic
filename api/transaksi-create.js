@@ -29,6 +29,10 @@ export default async function handler(req, res) {
         const data = await response.json();
         return res.status(200).json(data);
     } catch (error) {
-        return res.status(500).json({ status: false, message: 'Server Error' });
+        console.error("Detail Error Transaksi Create:", error);
+        return res.status(500).json({ 
+            status: false, 
+            message: "Crash di Vercel: " + error.message 
+        });
     }
 }
