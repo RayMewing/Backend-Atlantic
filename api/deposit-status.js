@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     try {
         const params = new URLSearchParams();
         params.append('api_key', process.env.ATLANTIC_API_KEY);
-        params.append('id', req.body.id); // ID Deposit dari Atlantic
+        params.append('id', req.body.id); 
 
         const response = await fetch('https://atlantich2h.com/deposit/status', {
             method: 'POST',
@@ -21,6 +21,10 @@ export default async function handler(req, res) {
         const data = await response.json();
         return res.status(200).json(data);
     } catch (error) {
-        return res.status(500).json({ status: false, message: 'Server Error' });
+        console.error("Detail Error Deposit Status:", error);
+        return res.status(500).json({ 
+            status: false, 
+            message: "Crash di Vercel: " + error.message 
+        });
     }
 }
